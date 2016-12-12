@@ -44,6 +44,23 @@ paths:
             $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
+  /account/{id}:
+    x-swagger-router-controller: accountCtrl
+    get:
+      operationId: getAccountById
+      description: returns the required account information
+      parameters:
+        - name: id
+          in: path
+          description: the account identifier
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/Account'
+   
 # complex objects have schema definitions
 definitions:
   HelloWorldResponse:
@@ -57,4 +74,13 @@ definitions:
       - message
     properties:
       message:
+        type: string
+  Account:
+    required:
+      - accountId
+      - accountName
+    properties:
+      accountId:
+        type: string
+      accountName:
         type: string

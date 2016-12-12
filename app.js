@@ -5,19 +5,26 @@ var app = require('express')();
 module.exports = app; // for testing
 
 var config = {
-  appRoot: __dirname // required config
+    appRoot: __dirname // required config
 };
 
-SwaggerExpress.create(config, function(err, swaggerExpress) {
-  if (err) { throw err; }
+app.use(function (req, res, next) {
+    console.log(req.url);
+    next()
+});
 
-  // install middleware
-  swaggerExpress.register(app);
+SwaggerExpress.create(config, function (err, swaggerExpress) {
+    if (err) {
+        throw err;
+    }
 
-  var port = process.env.PORT || 10010;
-  app.listen(port);
+    // install middleware
+    swaggerExpress.register(app);
 
-  if (swaggerExpress.runner.swagger.paths['/hello']) {
-    console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
-  }
+    var port = process.env.PORT || 10010;
+    app.listen(port);
+
+    if (swaggerExpress.runner.swagger.paths['/hello']) {
+        console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');
+    }
 });
