@@ -41,12 +41,99 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-   
+  /template/{id}:
+    x-swagger-router-controller: templateCtrl
+    get:
+      operationId: getTemplateById
+      description: returns the required template by id
+      parameters:
+        - name: id
+          in: path
+          description: the template identifier
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/Template'
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /masterLayout/{id}:
+    x-swagger-router-controller: masterLayoutCtrl
+    get:
+      operationId: getMasterLayoutById
+      description: returns the required master layout by id
+      parameters:
+        - name: id
+          in: path
+          description: the master layout identifier
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/MasterLayout'
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /email/{id}:
+    x-swagger-router-controller: emailMessageCtrl
+    get:
+      operationId: getEmailMessageById
+      description: returns the required emailMessage by id
+      parameters:
+        - name: id
+          in: path
+          description: the emailMessage identifier
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/EmailMessage'
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /email/send:
+    x-swagger-router-controller: emailMessageCtrl
+    post:
+      operationId: sendEmail
+      description: returns the required emailMessage by id
+      parameters:
+        - name: email
+          in: body
+          description: email message to send
+          required: true
+          schema:
+            $ref: '#/definitions/EmailMessage'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/EmailMessage'
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
 # complex objects have schema definitions
 definitions:
   Template:
     properties:
       id:
+        type: string
+      accountId:
         type: string
       name:
         type: string
@@ -63,6 +150,7 @@ definitions:
     required:
       - id
       - name
+      - accountId
   MasterLayout:
     properties:
       id:
@@ -84,8 +172,28 @@ definitions:
         type: string
       template:
         type: string
+      accountId: 
+        type: string
       deliveryDate:
         type: string
+      subject:
+        type: string
+      body:
+        type: string
+      from:
+        type: string
+      to:
+        type: array
+        items:
+          type: string
+      cc:
+        type: string
+        items:
+          type: string
+    required:
+    - subject
+    - body
+    - to
   ErrorResponse:
     required:
       - message
@@ -96,7 +204,7 @@ definitions:
     type: object
     required:
       - id
-      - accountName
+      - accountName 
     properties:
       id:
         type: string
