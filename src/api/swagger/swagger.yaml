@@ -163,7 +163,6 @@ definitions:
       masterLayoutId:
         type: string
     required:
-      - id
       - name
       - accountId
   MasterLayout:
@@ -177,7 +176,6 @@ definitions:
       template: 
         type: string
     required:
-      - id
       - accountId
       - name
       - template
