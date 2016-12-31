@@ -77,6 +77,26 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /template:
+    x-swagger-router-controller: templateCtrl
+    post:
+      operationId: createTemplate
+      parameters:
+        - name: template
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Template'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/Template'
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /masterLayout/{id}:
     x-swagger-router-controller: masterLayoutCtrl
     get:
@@ -164,7 +184,6 @@ definitions:
         type: string
     required:
       - name
-      - accountId
   MasterLayout:
     properties:
       id:

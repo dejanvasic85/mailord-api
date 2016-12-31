@@ -1,11 +1,20 @@
 module.exports = {
-    getTemplateById : getTemplateById
+
+    getTemplateById: (req, res) => {
+
+        res.json({
+            'foo': 'bar'
+        }).status(200);
+
+    },
+
+    createTemplate: (req, res) => {
+
+        let template = req.swagger.params.template.value;
+
+        // Todo - store in mongo
+
+        res.json(template);
+
+    }
 };
-
-function getTemplateById(req, res){
-
-    res.json({
-        'foo': 'bar'
-    }).status(200);
-
-}
