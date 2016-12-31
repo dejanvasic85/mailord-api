@@ -228,10 +228,7 @@ definitions:
   HealthResponse:
     type: object
     required:
-      - id
-      - accountName 
+      - status
     properties:
-      id:
-        type: string
-      accountName:
+      status:
         type: string
