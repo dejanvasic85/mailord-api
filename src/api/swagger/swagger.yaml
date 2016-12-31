@@ -20,6 +20,21 @@ produces:
 paths:
   /swagger:
     x-swagger-pipe: swagger_raw
+  /health:
+    x-swagger-router-controller: healthCtrl
+    get:
+      operationId: health
+      description: Ensures the api is healthy
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/HealthResponse'
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /account/{id}:
     x-swagger-router-controller: accountCtrl
     get:
@@ -201,6 +216,16 @@ definitions:
       message:
         type: string
   Account:
+    type: object
+    required:
+      - id
+      - accountName 
+    properties:
+      id:
+        type: string
+      accountName:
+        type: string
+  HealthResponse:
     type: object
     required:
       - id
