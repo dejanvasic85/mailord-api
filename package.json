@@ -9,6 +9,7 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.12.3",
+    "mongoose": "^4.7.5",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
@@ -21,7 +22,8 @@
   "scripts": {
     "edit": "cross-env swagger_swagger_fileName=src/api/swagger/swagger.yaml swagger project edit",
     "build": "babel src --out-dir dist --copy-files",
-    "start": "npm run build && node dist/app.js",
+    "build-start": "npm run build && npm start",
+    "start": "node dist/app.js",
     "test": "swagger project test"
   }
 }

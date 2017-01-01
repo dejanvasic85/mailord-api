@@ -1,5 +1,5 @@
 export function health(req, res) {
     res.json({
-        status: 'ok'
+        status: 'whats up doc!'
     });
 }
