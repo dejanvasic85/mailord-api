@@ -1,21 +1,26 @@
 import SwaggerExpress from 'swagger-express-mw';
 import express from 'express';
+import mongoose from 'mongoose';
+import Promise from 'bluebird';
+import appConfig from './config/appConfig';
+import {loggingMiddleware} from './services/logger.js';
 
-var app = express();
-module.exports = app; // for testing
+// Configure mongoose library to use bluebird promises
+mongoose.Promise = Promise;
 
-var config = {
+const app = express();
+const config = {
     appRoot: __dirname, // required config
     swaggerFile: __dirname + '/api/swagger/swagger.yaml',
     configDir: __dirname + '/config'
 };
 
-app.use(function (req, res, next) {
-    console.log(req.url);
-    next()
-});
+// Logging middleware
 
-SwaggerExpress.create(config, function (err, swaggerExpress) {
+app.use(loggingMiddleware);
+
+
+SwaggerExpress.create(config, (err, swaggerExpress) => {
 
     if (err) {
         throw err;
@@ -24,10 +29,21 @@ SwaggerExpress.create(config, function (err, swaggerExpress) {
     // install middleware
     swaggerExpress.register(app);
 
-    var port = process.env.PORT || 10010;
-    app.listen(port, () => {
-        console.log('starting ... running on port 10010. NODE_ENV = ', process.env.NODE_ENV);
+    // Open mongoose connection
+    mongoose.connect(appConfig.mongoConnection, () => {
+
+        console.log('connection to database is ready', appConfig.mongoConnection);
+
+    });
+
+
+    // Start!
+    app.listen(appConfig.applicationPort, () => {
+
+        console.log(`starting ... running on port ${appConfig.applicationPort}. NODE_ENV = ${process.env.NODE_ENV}`);
+
     });
 });
 
-export default app;
+
+module.exports = app; // for testing

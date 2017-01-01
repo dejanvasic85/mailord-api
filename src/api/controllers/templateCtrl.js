@@ -1,20 +1,31 @@
+import Template from '../models/template';
+import mongoose from 'mongoose';
+
 module.exports = {
 
     getTemplateById: (req, res) => {
 
-        res.json({
-            'foo': 'bar'
-        }).status(200);
+        const templateId = req.swagger.params.id.value;
 
+        Template
+            .find({_id: mongoose.Types.ObjectId(templateId)})
+            .then((t) => {
+                console.log('here .... ', t);
+                res.json(t);
+            })
+            .catch((err) => {
+                throw err;
+            });
     },
 
     createTemplate: (req, res) => {
 
-        let template = req.swagger.params.template.value;
+        let templateDetails = new Template(req.swagger.params.template.value);
 
-        // Todo - store in mongo
+        templateDetails.save().then(() => {
 
-        res.json(template);
+            res.json(templateDetails);
 
+        });
     }
 };
