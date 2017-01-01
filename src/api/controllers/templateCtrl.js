@@ -1,4 +1,4 @@
-import Template from '../models/template';
+import Template from '../../models/template';
 import mongoose from 'mongoose';
 
 module.exports = {
