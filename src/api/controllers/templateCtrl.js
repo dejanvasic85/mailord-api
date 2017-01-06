@@ -1,5 +1,6 @@
 import Template from '../../models/template';
 import Error from '../../models/error';
+import DeleteResult from '../../models/deleteResult';
 
 module.exports = {
 
@@ -11,7 +12,7 @@ module.exports = {
             .findById(templateId)
             .then((t) => {
 
-                if(!t){
+                if (!t) {
                     res.status(404).send(new Error('Not Found'));
                     return;
                 }
@@ -50,7 +51,13 @@ module.exports = {
 
     deleteTemplate: (req, res) => {
 
-
-
+        Template.findByIdAndRemove(req.swagger.params.id.value)
+            .then(() => {
+                res.json(new DeleteResult(true));
+            })
+            .catch((err) => {
+                console.error(err);
+                res.error(err);
+            });
     }
 };

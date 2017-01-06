@@ -115,7 +115,7 @@ paths:
         "200":
           description: Success
           schema:
-            type: boolean
+            $ref: "#/definitions/DeleteResult"
         # responses may fall through to errors
         default:
           description: Error
@@ -276,6 +276,12 @@ definitions:
     properties:
       message:
         type: string
+  DeleteResult:
+      required:
+        - successful
+      properties:
+        successful:
+          type: boolean
   Account:
     type: object
     required:

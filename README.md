@@ -22,8 +22,8 @@ All snippets should be run within the root directory of the application
 
 ### Running in docker
 
-docker-compose coming soon. For the moment just
-use docker build and run.
+ - `docker-compose build`
+ - `docker-compose up -d`
 
- - `docker run -d --name mailord-mongo mongo`
- - `docker build -t mailord/node .`
+To then remove:
+ - `docker-compose down`

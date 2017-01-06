@@ -1,9 +1,12 @@
-version: '1'
+version: '2'
 services:
+
   node:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "3000:10010"
     networks:
       - mailord-net
 
@@ -12,6 +15,6 @@ services:
     networks:
       - mailord-net
 
-  networks:
-    mailord-net
-      driver: bridge
+networks:
+  mailord-net:
+    driver: bridge
