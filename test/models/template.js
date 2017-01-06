@@ -1,4 +1,4 @@
-import template from '../../src/models/template';
+import Template from '../../src/models/template';
 
 describe('Template model', () => {
 
