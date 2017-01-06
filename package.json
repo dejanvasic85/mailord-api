@@ -28,6 +28,6 @@
     "build": "babel src --out-dir dist --copy-files",
     "build-start": "npm run build && npm start",
     "start": "node dist/app.js",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register"
+    "test": "./node_modules/.bin/_mocha --compilers js:babel-core/register --recursive"
   }
 }
