@@ -4,7 +4,7 @@ describe('Template model', () => {
 
 	describe('create new template', () => {
 
-		it('saves a new docment', () => {
+		it.skip('saves a new docment', () => {
 
 			var templateDetails = new Template({
 				name: "hello there!"
