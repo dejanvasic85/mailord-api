@@ -1,4 +1,5 @@
-var expect = require('chai').expect;
+import chai from 'chai';
+const expect = chai.expect;
 
 describe('Something that always works', () => {
 
