@@ -2,16 +2,15 @@ language: node_js
 node_js:
   - "6.1"
 
-env:
-  - DOCKER_COMPOSE_VERSION: 1.9.0
-
 before_install:
+   - npm install -g swagger
+   - npm install -g mocha
 
-  # Update docker compose because Travis may use an older one
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+   # Update docker-compose because travis uses an older version
+   - sudo rm /usr/local/bin/docker-compose
+   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+   - chmod +x docker-compose
+   - sudo mv docker-compose /usr/local/bin
 
    # Do AWS login for ECR.
    - pip install --user awscli
