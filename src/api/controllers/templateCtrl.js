@@ -1,5 +1,4 @@
 import Template from '../../models/template';
-import mongoose from 'mongoose';
 
 module.exports = {
 
@@ -8,9 +7,8 @@ module.exports = {
         const templateId = req.swagger.params.id.value;
 
         Template
-            .find({_id: mongoose.Types.ObjectId(templateId)})
+            .findById(templateId)
             .then((t) => {
-                console.log('here .... ', t);
                 res.json(t);
             })
             .catch((err) => {
@@ -27,5 +25,19 @@ module.exports = {
             res.json(templateDetails);
 
         });
+    },
+
+    updateTemplate: (req, res) => {
+
+        let templateDetails = new Template(req.swagger.params.template.value);
+        let templateId = req.swagger.params.id.value;
+
+        console.log('****** template Id', templateId);
+        console.log('000000 template details', templateDetails);
+
+        res.json({
+            templateDetails
+        });
+
     }
 };
