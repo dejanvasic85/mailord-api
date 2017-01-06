@@ -25,3 +25,4 @@ before_install:
    # Compose docker containers.
    - docker-compose --version
    - docker-compose build
+   - docker-compose up
