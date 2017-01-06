@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dejanvasic85/mailord-api.svg?branch=master)](https://travis-ci.org/dejanvasic85/mailord-api)
+
 # Skeleton project for Swagger
 
 At the moment this is just a muck around project to learn few things
