@@ -1,2 +1,17 @@
 version: '1'
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mailord-net
 
+  mailord-mongo:
+    image: mongo
+    networks:
+      - mailord-net
+
+  networks:
+    mailord-net
+      driver: bridge
