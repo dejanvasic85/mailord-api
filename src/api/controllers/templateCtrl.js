@@ -29,15 +29,15 @@ module.exports = {
 
     updateTemplate: (req, res) => {
 
-        let templateDetails = new Template(req.swagger.params.template.value);
-        let templateId = req.swagger.params.id.value;
+        // Fetch the original template
+        Template.findByIdAndUpdate(
+            req.swagger.params.id.value,
+            {$set : req.swagger.params.template.value },
+            {new : true}
+        ).then((template) => {
 
-        console.log('****** template Id', templateId);
-        console.log('000000 template details', templateDetails);
+            res.json(template);
 
-        res.json({
-            templateDetails
         });
-
     }
 };
