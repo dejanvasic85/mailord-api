@@ -21,4 +21,10 @@ before_install:
 
    # Compose docker containers.
    - docker-compose --version
-   - docker-compose build
+
+script:
+  - npm run build
+
+after_script:
+  - npm prune --production
+  - docker-compose build
