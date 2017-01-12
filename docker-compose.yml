@@ -10,7 +10,7 @@ services:
     networks:
       - mailord-net
 
-  mailord-mongo:
+  mongodb:
     image: mongo
     networks:
       - mailord-net
