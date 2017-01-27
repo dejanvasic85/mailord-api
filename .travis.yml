@@ -8,23 +8,32 @@ services:
 
 before_install:
    # Update docker-compose because travis uses an older version
-   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-   - chmod +x docker-compose
-   - sudo mv docker-compose /usr/local/bin
+   #- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+   #- chmod +x docker-compose
+   #- sudo mv docker-compose /usr/local/bin
 
    # Do AWS login for ECR.
    - pip install --user awscli
    - export PATH=$PATH:$HOME/.local/bin
-   - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-   - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-   - $(aws ecr get-login --region us-west-2)
+
 
    # Compose docker containers.
-   - docker-compose --version
+   #- docker-compose --version
 
 script:
   - npm run build
 
 after_script:
   - npm prune --production
-  - docker-compose build
+  #- docker-compose build
+
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+    $(aws ecr get-login --region us-west-1)
+    docker build -t mailord-api .
+    docker tag mailord-api:latest 020250243072.dkr.ecr.us-west-1.amazonaws.com/mailord-api:latest
+    docker push 020250243072.dkr.ecr.us-west-1.amazonaws.com/mailord-api:latest
+    fi
