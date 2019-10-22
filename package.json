@@ -10,7 +10,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "express": "^4.12.3",
-    "mongoose": "^4.7.5",
+    "mongoose": "^5.7.6",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
